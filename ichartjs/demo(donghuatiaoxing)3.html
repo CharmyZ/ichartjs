@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>带动画的条形图</title>
+</head>
+<body>
+<div id='canvasDiv'></div>
+
+<script type="text/javascript" src="ichart.1.2.min.js"></script> 
+<script type="text/javascript">
+			$(function() {
+		var data = [{
+			name : '天语',
+			value : 2.83,
+			color : '#4572a7'
+		}, {
+			name : '苹果',
+			value : 3.44,
+			color : '#4572a7'
+		}, {
+			name : 'HTC',
+			value : 3.66,
+			color : '#4572a7'
+		}, {
+			name : '金立',
+			value : 4.58,
+			color : '#4572a7'
+		}, {
+			name : '中兴',
+			value : 6.56,
+			color : '#4572a7'
+		}, {
+			name : '酷派',
+			value : 6.85,
+			color : '#4572a7'
+		}, {
+			name : '诺基亚',
+			value : 9.42,
+			color : '#4572a7'
+		}, {
+			name : '华为',
+			value : 9.54,
+			color : '#4572a7'
+		}, {
+			name : '联想',
+			value : 11.00,
+			color : '#4572a7'
+		}, {
+			name : '三星',
+			value : 15.73,
+			color : '#4572a7'
+		}];
+
+		new iChart.Bar2D({
+			render : 'canvasDiv',
+			background_color : '#EEEEEE',
+			data : data,
+			title : '2012年6月中国手机市场份额TOP10',
+			subtitle : '联想手机超越诺基亚，以11%市场份额，成为中国市场第二',
+			footnote : '数据来源：赛诺',
+			width : 800,
+			height : 400,
+			coordinate : {
+				width : 640,
+				height : 260,
+				axis : {
+					width : [0, 0, 1, 1]
+				},
+				scale : [{
+					position : 'bottom',
+					start_scale : 0,
+					end_scale : 18,
+					scale_space : 2
+				}]
+			},
+			animation : true,
+			sub_option : {
+				listeners : {
+					parseText : function(r, t) {
+						return t + "%";
+					}
+				}
+			},
+			legend : {
+				enable : false
+			}
+		}).draw();
+	});
+
+</script>	
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>2D条形对比图</title>
+</head>
+<body>
+<div id='canvasDiv'></div>
+
+<script type="text/javascript" src="ichart.1.2.min.js"></script> 
+<script type="text/javascript">
+		$(function(){
+			var data = [
+			         	{
+			         		name : 'DPS01A',
+			         		value:[45,52,54,74,90,84],
+			         		color:'#47b2c8'
+			         	},
+			         	{
+			         		name : 'DPS01B',
+			         		value:[60,80,105,125,108,120],
+			         		color:'#db6086'
+			         	}
+			         ];
+	         
+			var chart = new iChart.BarMulti2D({
+					render : 'canvasDiv',
+					data: data,
+					labels:["一月","二月","三月","四月","五月","六月"],
+					title : {
+						text:'DPS01A型号比DPS01B型号的产品更受用户喜欢',
+						color:'#585757'
+					},
+					subtitle : {
+						text:'2012上半年DPS01A型号与DPS01B型号的鼠标销售比较,单位:万台',
+						color:'#797373'
+					},
+					footnote : '数据来源：销售中心',
+					width : 800,
+					height : 400,
+					background_color : '#ffffff',
+					legend:{
+						enable:true,
+						background_color : null,
+						border : {
+							enable : false
+						}
+					},
+					coordinate:{
+						scale:[{
+							 position:'bottom',	
+							 start_scale:0,
+							 end_scale:140,
+							 scale_space:20
+						}],
+						background_color : null,
+						axis : {
+							width : 0
+						},
+						width:600,
+						height:260
+					}
+			});
+			chart.draw();
+		});
+		
+</script>	
+</body>
+</html>

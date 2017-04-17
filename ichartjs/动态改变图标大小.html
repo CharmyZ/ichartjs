@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>动态改变图表大小</title>
+</head>
+<body>
+<div id='canvasDiv'></div>
+<div style="padding:10px 0px;">
+				宽度：
+				<select onchange="dosize()" id="width">
+					<option value="800">800</option>
+					<option value="600">640</option>
+					<option value="400">560</option>
+				</select>
+				&nbsp;
+				高度：
+				<select onchange="dosize()" id="height">
+					<option value="400">400</option>
+					<option value="300">320</option>
+					<option value="200">280</option>
+				</select>
+</div>
+<script type="text/javascript" src="ichart.1.2.min.js"></script> 
+<script type="text/javascript">
+					$(function(){
+					var data = [
+					        	{name : 'overall',value : 34,color:'#609fad'},
+					        	{name : '18-24',value : 33,color:'#609fad'},
+					        	{name : '25-34',value : 37,color:'#609fad'},
+					        	{name : '35-44',value : 49,color:'#609fad'},
+					        	{name : '45-54',value : 38,color:'#609fad'},
+					        	{name : '55-64',value : 28,color:'#609fad'},
+					        	{name : '65+',value : 18,color:'#609fad'}
+				        	];
+		        	
+					var chart = new iChart.Column2D({
+						id:'ichartjs2013',
+						render : 'canvasDiv',
+						data: data,
+						title : {
+							text:'US Tablet Adoption Rates in May 2013',
+							color:'#d84b45',
+							textAlign:'left',
+							padding:'0 40',
+							font:'微软雅黑',
+							border:{
+								enable:true,
+								width:[0,0,4,0],
+								color:'#609fad'
+							},
+							height:40
+						},
+						subtitle : {
+							text:'% of adults aged 18+',
+							color:'#609fad',
+							textAlign:'left',
+							padding:'0 40',
+							font:'微软雅黑',
+							height:30
+						},
+						footnote : {
+							text:'数据来源：互联网',
+							font:'微软雅黑',
+							padding:'0 8',
+							background_color : $.toRgba('#609fad',0.6),
+							width:110,
+							offsetx:-10,
+							align:'right',
+							color:'#d84b45'
+						},
+						background_color : '#f8f8f8',
+						padding:'4 0',
+						width : 800,
+						height : 400,
+						label : {
+							fontsize:12,
+							font:'微软雅黑',
+							color : '#4572a7'
+						},
+						sub_option:{
+							listeners : {
+								parseText : function(r, t) {
+									return t + "%";
+								}
+							},
+							label : {
+								fontsize:12,
+								fontweight:600,
+								font:'微软雅黑',
+								color : '#4572a7'
+							}
+						},
+						coordinate:{
+							width:'90%',
+							height:'74%',
+							axis : {
+								color : '#c0d0e0',
+								width : [0, 0, 2, 0]
+							},
+							scale:[{
+								 position:'left',	
+								 start_scale:0,
+								 end_scale:50,
+								 scale_enable : false,
+								 listeners:{
+									parseText:function(t,x,y){
+										return {text:""}
+									}
+								}
+							}]
+						}
+					});
+					chart.draw();
+			});
+				
+			function dosize(){
+				var chart = $.get('ichartjs2013');//根据ID获取图表对象
+				chart.push("column_width",null);//设置为null则每次重新计算柱子宽度
+				var w = $("width").value;
+				var h = $("height").value;
+				chart.resize(w,h);
+			}
+			
+</script>	
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>饼图点击消失事件</title>
+</head>
+<body>
+<div id='canvasDiv'></div>
+
+<script type="text/javascript" src="ichart.1.2.min.js"></script> 
+<script type="text/javascript">
+	$(function(){
+				var data = [
+				        	{name : 'Other',value : 0.73,color:'#6f83a5'},
+				        	{name : 'IE',value : 35.75,color:'#9d4a4a'},
+				        	{name : 'Chrome',value : 29.84,color:'#5d7f97'},
+				        	{name : 'Firefox',value : 24.88,color:'#97b3bc'},
+				        	{name : 'Safari',value : 6.77,color:'#a5aaaa'},
+				        	{name : 'Opera',value : 2.02,color:'#778088'}
+			        	];
+	        	
+				var chart  = new iChart.Pie2D({
+					render : 'canvasDiv',
+					data: data,
+					title : 'Top 5 Browsers from 1 to 29 Feb 2012',
+					legend : {
+						enable : true,
+						listeners:{
+							beforedraw:function(l){
+								if(l.bcd){
+									return false;
+								}
+								return true;
+							},
+							click:function(l,e,m){
+								l.bcd=true;
+								//手动调用重绘
+								chart.draw();
+							}
+						}
+					},
+					showpercent:true,
+					decimalsnum:2,
+					width : 800,
+					height : 400,
+					radius:140,
+					sub_option:{
+						listeners:{
+							beforedraw:function(s){
+								if(s.abc){
+									return false;
+								}
+								return true;
+							},
+							/**
+							 * r:iChart.Sector2D对象
+							 * e:eventObject对象
+							 * m:额外参数
+							 */
+							click:function(s,e,m){
+								if(s.get('name')!='IE')
+								s.abc=true;
+							}
+						}
+					}
+				});
+				chart.draw();
+			});
+
+</script>	
+</body>
+</html>

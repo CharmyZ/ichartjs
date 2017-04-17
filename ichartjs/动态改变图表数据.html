@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>动态改变图表数据</title>
+</head>
+<body>
+<div id='canvasDiv'></div>
+<div style="padding:10px 0px;">
+	<input onclick="load()" value="载入数据" type="button">
+</div>
+<script type="text/javascript" src="ichart.1.2.min.js"></script> 
+<script type="text/javascript">
+					$(function(){
+		        	
+					var chart = new iChart.Column2D({
+						id:'ichartjs2013',
+						render : 'canvasDiv',
+						data: create(),
+						title : {
+							text:'2012年度商城季度销售额情况',
+							color:'#4e5665',
+							padding:'0 40',
+							font:'微软雅黑',
+							height:40
+						},
+						subtitle : {
+							text:'单位:百万元',
+							color:'#4e5665',
+							padding:'0 40',
+							font:'微软雅黑',
+							height:30
+						},
+						footnote : {
+							text:'数据来源：模拟数据',
+							font:'微软雅黑',
+							padding:'0 8',
+							background_color : $.toRgba('#666791',0.6),
+							width:120,
+							offsetx:-10,
+							align:'right',
+							color:'#4e5665'
+						},
+						background_color : '#fdfdfd',
+						padding:'4 0',
+						width : 800,
+						height : 400,
+						label : {
+							fontsize:13,
+							fontweight:600,
+							font:'微软雅黑',
+							color : '#4572a7'
+						},
+						shadow : true,
+						shadow_blur : 2,
+						shadow_color : '#8887bf',
+						shadow_offsetx : 1,
+						shadow_offsety : 1,
+						sub_option:{
+							listeners : {
+								parseText : function(r, t) {
+									return "$"+t;
+								}
+							},
+							border:{
+								enable:true,
+								color:'#666666'
+							},
+							label : {
+								fontsize:16,
+								fontweight:600,
+								font:'微软雅黑',
+								color : '#4572a7'
+							}
+						},
+						coordinate:{
+							width:'88%',
+							height:'74%',
+							axis : {
+								color : '#666791',
+								width : [0, 0, 2, 0]
+							},
+							scale:[{
+								 position:'left',	
+								 start_scale:0,
+								 end_scale:50,
+								 scale_enable : false,
+								 label : {
+									fontsize:12,
+									font:'微软雅黑',
+									color : '#4572a7'
+								 },
+								 listeners:{
+									parseText:function(t,x,y){
+										return {text:"$"+t}
+									}
+								}
+							}]
+						}
+					});
+					chart.draw();
+			});
+
+			//创建随机数据源				
+			var create = function (){
+					var f = function(){return Math.floor(Math.random()*40)+10;},opacity = 0.8	
+					return function(){
+						return [
+					        	{name : 'Jan-Mar',value : f(),color:$.toRgba('#827fbf',opacity)},
+					        	{name : 'Apr-Jun',value : f(),color:$.toRgba('#e4be4d',opacity)},
+					        	{name : 'Jul-Sep',value : f(),color:$.toRgba('#91aa51',opacity)},
+					        	{name : 'Oct-Dec',value : f(),color:$.toRgba('#a14545',opacity)}
+				  	 	]
+				}
+			}();	
+				
+			function load(){
+				var chart = $.get('ichartjs2013');//根据ID获取图表对象
+				chart.load(create());//载入新数据
+			}
+			
+</script>	
+</body>
+</html>
